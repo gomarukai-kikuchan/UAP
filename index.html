@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PURSUE - UAP Video Theater</title>
+    <style>
+        :root {
+            --bg-color: #0a0c10;
+            --card-bg: #161b22;
+            --accent-color: #00ff66;
+            --text-color: #e6edf3;
+            --text-muted: #8b949e;
+            --border-color: #30363d;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 20px 15px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+        header h1 {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+        header p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .treasure-box {
+            background: linear-gradient(45deg, #1f2937, #111827);
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .treasure-box h3 {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+        .btn-zip {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #000;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+        }
+        .video-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .video-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .video-badge {
+            align-self: flex-start;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 4px;
+            background-color: #21262d;
+            border: 1px solid var(--text-muted);
+        }
+        .badge-r02 {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        .badge-r01 {
+            color: #00d2ff;
+            border-color: #00d2ff;
+        }
+        .video-title {
+            font-size: 0.95rem;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+        .video-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .video-meta span {
+            background-color: #21262d;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .btn-play {
+            display: block;
+            text-align: center;
+            background-color: #238636;
+            color: white;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            transition: background 0.2s;
+        }
+        .btn-play:active {
+            background-color: #2ea043;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>PURSUE: UAP THEATER</h1>
+        <p>スマホ最適化・動画ストリーミング専用リンク集</p>
+    </header>
+
+    <!-- お宝ZIPリンクコーナー -->
+    <div class="treasure-box">
+        <h3>🎁 米政府公開・全動画一括DLリンク (PC推奨)</h3>
+        <a href="https://d34w7g4gy10iej.cloudfront.net/uap052226.zip" class="btn-zip">Release 02 動画を丸ごと落とす [5.6GB]</a>
+        <div style="margin-top: 10px;">
+            <a href="https://d34w7g4gy10iej.cloudfront.net/uapvideos.zip" class="btn-zip" style="background-color: #00d2ff; box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);">Release 01 動画を丸ごと落とす [1.3GB]</a>
+        </div>
+    </div>
+
+    <!-- 動画リスト（1ページ目の10本分） -->
+    <div class="video-list">
+
+        <!-- 1本目 -->
+        <div class="video-card">
+            <span class="video-badge badge-r02">RELEASE 02 (最新)</span>
+            <div class="video-title">DOW-UAP-PR050: 4 UAP Formation Iran 26 Aug 2022 over water [CALLSIGN]</div>
+            <div class="video-meta">
+                <span>年: 2022</span>
+                <span>場所: CENTCOM</span>
+                <span>管轄: Department of War</span>
+            </div>
+            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR050-4-UAP-Formation-Iran-26-Aug-2022-over-water-CALLSIGN" target="_blank" class="btn-play">▶ 別ウィンドウで動画を再生</a>
+        </div>
+
+        <!-- 2本目 -->
+        <div class="video-card">
+            <span class="video-badge badge-r02">RELEASE 02 (最新)</span>
+            <div class="video-title">DOW-UAP-PR051: Syrian UAP instant acceleration</div>
+            <div class="video-meta">
+                <span>年: 2021</span>
+                <span>場所: CENTCOM</span>
+                <span>管轄: Department of War</span>
+            </div>
+            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR051-Syrian-UAP-instant-acceleration" target="_blank" class="btn-play">▶ 別ウィンドウで動画を再生</a>
+        </div>
+
+        <!-- 3本目 -->
+        <div class="video-card">
+            <span class="video-badge badge-r01">RELEASE 01</span>
+            <div class="video-title">DOW-UAP-PR019: Unresolved UAP Report, Middle East, May 2022</div>
+            <div class="video-meta">
+                <span>年: N/A</span>
+                <span>場所: Middle East</span>
+                <span>管轄: Department of War</span>
+            </div>
+            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR019-Unresolved-UAP-Report-Middle-East-May-2022" target="_blank" class="btn-play">▶ 別ウィンドウで動画を再生</a>
+        </div>
+
+        <!-- 4本目 -->
+        <div class="video-card">
+            <span class="video-badge badge-r01">RELEASE 01</span>
+            <div class="video-title">DOW-UAP-PR021: Unresolved UAP Report, Iraq, May 2022</div>
+            <div class="video-meta">
+                <span>年: N/A</span>
+                <span>場所: Iraq</span>
+                <span>管轄: Department of War</span>
+            </div>
+            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR021-Unresolved-UAP-Report-Iraq-May-2022" target="_blank" class="btn-play">▶ 別ウィンドウで動画を再生</a>
+        </div>
+
+        <!-- 5本目 -->
+        <div class="video-card">
+            <span class="video-badge badge-r01">RELEASE 01</span>
+            <div class="video-title">DOW-UAP-PR022: Unresolved UAP Report, Syria, July 2022</div>
+            <div class="video-meta">
+                <span>年: N/A</span>
+                <span>場所: Syria</span>
+                <span>管轄: Department of War</span>
+            </div>
+            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR022-Unresolved-UAP-Report-Syria-July-2022" target="_blank" class="btn-play">▶ 別ウィンドウで動画を再生</a>
+        </div>
+
+        <!-- 6本目 -->
+        <div class="video-card">
+            <span class="video-badge badge-r01">RELEASE 01</span>
+            <div class="video-title">DOW-UAP-PR023: Unresolved UAP Report, Iraq, December 2022</div>
+            <div class="video-meta">
+                <span>年: N/A</span>
+                <span>場所: Iraq</span>
+                <span>管轄: Department of War</span>
+            </div>
+            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR023-Unresolved-UAP-Report-Iraq-December-2022" target="_blank" class="btn-play">▶ 別ウィンドウで動画を再生</a>
+        </div>
+
+        <!-- 7本目 -->
+        <div class="video-card">
+            <span class="video-badge badge-r01">RELEASE 01</span>
+            <div class="video-title">DOW-UAP-PR026: Unresolved UAP Report, United Arab Emirates, October 2023</div>
+            <div class="video-meta">
+                <span>年: N/A</span>
+                <span>場所: United Arab Emirates</span>
+                <span>管轄: Department of War</span>
+            </div>
+            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR026-Unresolved-UAP-Report-United-Arab-Emirates-October-2023" target="_blank" class="btn-play">▶ 別ウィンドウで動画を再生</a>
+        </div>
+
+        <!-- 8本目 -->
+        <div class="video-card">
+            <span class="video-badge badge-r01">RELEASE 01</span>
+            <div class="video-title">DOW-UAP-PR027: Unresolved UAP Report, United Arab Emirates, October 2023</div>
+            <div class="video-meta">
+                <span>年: N/A</span>
+                <span>場所: United Arab Emirates</span>
+                <span>管轄: Department of War</span>
+            </div>
+            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR027-Unresolved-UAP-Report-United-Arab-Emirates-October-2023" target="_blank" class="btn-play">▶ 別ウィンドウで動画を再生</a>
+        </div>
+
+        <!-- 9本目 -->
+        <div class="video-card">
+            <span class="video-badge badge-r01">RELEASE 01</span>
+            <div class="video-title">DOW-UAP-PR028: Unresolved UAP Report, Greece, January 2024</div>
+            <div class="video-meta">
+                <span>年: N/A</span>
+                <span>場所: Greece</span>
+                <span>管轄: Department of War</span>
+            </div>
+            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR028-Unresolved-UAP-Report-Greece-January-2024" target="_blank" class="btn-play">▶ 別ウィンドウで動画を再生</a>
+        </div>
+
+        <!-- 10本目 -->
+        <div class="video-card">
+            <span class="video-badge badge-r01">RELEASE 01</span>
+            <div class="video-title">DOW-UAP-PR029: Unresolved UAP Report, United Arab Emirates, June 2024</div>
+            <div class="video-meta">
+                <span>年: N/A</span>
+                <span>場所: Gulf of Oman</span>
+                <span>管轄: Department of War</span>
+            </div>
+            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR029-Unresolved-UAP-Report-United-Arab-Emirates-June-2024" target="_blank" class="btn-play">▶ 別ウィンドウで動画を再生</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
