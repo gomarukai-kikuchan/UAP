@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAP STR_STREAMING</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .back-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(22, 27, 34, 0.8);
+            color: #00ff66;
+            border: 1px solid #30363d;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 戻るボタン -->
+    <a href="index.html" class="back-btn">◀ リストに戻る</a>
+
+    <!-- 政府の動画ポップアップ部分だけを全画面でハックして表示 -->
+    <iframe id="uap-frame" src=""></iframe>
+
+    <script>
+        // URLの末尾（?id=...）から動画のハッシュ名を受け取ってiframeにセット
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoId = urlParams.get('id');
+        if (videoId) {
+            // 政府サイトのポップアップが強制起動するURLを生成して埋め込む
+            document.getElementById('uap-frame').src = 'https://www.war.gov/UFO/?type=.vid#' + videoId;
+        }
+    </script>
+
+</body>
+</html>
