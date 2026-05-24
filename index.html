@@ -124,7 +124,8 @@
             text-decoration: none;
             font-size: 0.9rem;
             margin-top: 5px;
-            transition: background 0.2s;
+            cursor: pointer;
+            border: none;
         }
         .btn-play:active {
             background-color: #2ea043;
@@ -135,7 +136,7 @@
 
     <header>
         <h1>PURSUE: UAP THEATER</h1>
-        <p>スマホ最適化・ダイレクトフォーカス版</p>
+        <p>スマホ最適化・最下部強制スクロール版</p>
     </header>
 
     <!-- お宝ZIPリンクコーナー -->
@@ -147,7 +148,7 @@
         </div>
     </div>
 
-    <!-- 動画リスト（1ページ目の10本分・ダイレクトフォーカス版） -->
+    <!-- 動画リスト（1ページ目の10本分） -->
     <div class="video-list">
 
         <!-- 1本目 -->
@@ -157,9 +158,8 @@
             <div class="video-meta">
                 <span>年: 2022</span>
                 <span>場所: CENTCOM</span>
-                <span>管轄: Department of War</span>
             </div>
-            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR050-4-UAP-Formation-Iran-26-Aug-2022-over-water-CALLSIGN" target="_blank" class="btn-play">▶ 動画をピンポイントで開く</a>
+            <button onclick="playAndScroll('DOW-UAP-PR050-4-UAP-Formation-Iran-26-Aug-2022-over-water-CALLSIGN')" class="btn-play">▶ 最下部の動画へ突撃</button>
         </div>
 
         <!-- 2本目 -->
@@ -169,9 +169,8 @@
             <div class="video-meta">
                 <span>年: 2021</span>
                 <span>場所: CENTCOM</span>
-                <span>管轄: Department of War</span>
             </div>
-            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR051-Syrian-UAP-instant-acceleration" target="_blank" class="btn-play">▶ 動画をピンポイントで開く</a>
+            <button onclick="playAndScroll('DOW-UAP-PR051-Syrian-UAP-instant-acceleration')" class="btn-play">▶ 最下部の動画へ突撃</button>
         </div>
 
         <!-- 3本目 -->
@@ -181,9 +180,8 @@
             <div class="video-meta">
                 <span>年: N/A</span>
                 <span>場所: Middle East</span>
-                <span>管轄: Department of War</span>
             </div>
-            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR019-Unresolved-UAP-Report-Middle-East-May-2022" target="_blank" class="btn-play">▶ 動画をピンポイントで開く</a>
+            <button onclick="playAndScroll('DOW-UAP-PR019-Unresolved-UAP-Report-Middle-East-May-2022')" class="btn-play">▶ 最下部の動画へ突撃</button>
         </div>
 
         <!-- 4本目 -->
@@ -193,9 +191,8 @@
             <div class="video-meta">
                 <span>年: N/A</span>
                 <span>場所: Iraq</span>
-                <span>管轄: Department of War</span>
             </div>
-            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR021-Unresolved-UAP-Report-Iraq-May-2022" target="_blank" class="btn-play">▶ 動画をピンポイントで開く</a>
+            <button onclick="playAndScroll('DOW-UAP-PR021-Unresolved-UAP-Report-Iraq-May-2022')" class="btn-play">▶ 最下部の動画へ突撃</button>
         </div>
 
         <!-- 5本目 -->
@@ -205,9 +202,8 @@
             <div class="video-meta">
                 <span>年: N/A</span>
                 <span>場所: Syria</span>
-                <span>管轄: Department of War</span>
             </div>
-            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR022-Unresolved-UAP-Report-Syria-July-2022" target="_blank" class="btn-play">▶ 動画をピンポイントで開く</a>
+            <button onclick="playAndScroll('DOW-UAP-PR022-Unresolved-UAP-Report-Syria-July-2022')" class="btn-play">▶ 最下部の動画へ突撃</button>
         </div>
 
         <!-- 6本目 -->
@@ -217,9 +213,8 @@
             <div class="video-meta">
                 <span>年: N/A</span>
                 <span>場所: Iraq</span>
-                <span>管轄: Department of War</span>
             </div>
-            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR023-Unresolved-UAP-Report-Iraq-December-2022" target="_blank" class="btn-play">▶ 動画をピンポイントで開く</a>
+            <button onclick="playAndScroll('DOW-UAP-PR023-Unresolved-UAP-Report-Iraq-December-2022')" class="btn-play">▶ 最下部の動画へ突撃</button>
         </div>
 
         <!-- 7本目 -->
@@ -229,9 +224,8 @@
             <div class="video-meta">
                 <span>年: N/A</span>
                 <span>場所: United Arab Emirates</span>
-                <span>管轄: Department of War</span>
             </div>
-            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR026-Unresolved-UAP-Report-United-Arab-Emirates-October-2023" target="_blank" class="btn-play">▶ 動画をピンポイントで開く</a>
+            <button onclick="playAndScroll('DOW-UAP-PR026-Unresolved-UAP-Report-United-Arab-Emirates-October-2023')" class="btn-play">▶ 最下部の動画へ突撃</button>
         </div>
 
         <!-- 8本目 -->
@@ -241,9 +235,8 @@
             <div class="video-meta">
                 <span>年: N/A</span>
                 <span>場所: United Arab Emirates</span>
-                <span>管轄: Department of War</span>
             </div>
-            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR027-Unresolved-UAP-Report-United-Arab-Emirates-October-2023" target="_blank" class="btn-play">▶ 動画をピンポイントで開く</a>
+            <button onclick="playAndScroll('DOW-UAP-PR027-Unresolved-UAP-Report-United-Arab-Emirates-October-2023')" class="btn-play">▶ 最下部の動画へ突撃</button>
         </div>
 
         <!-- 9本目 -->
@@ -253,9 +246,8 @@
             <div class="video-meta">
                 <span>年: N/A</span>
                 <span>場所: Greece</span>
-                <span>管轄: Department of War</span>
             </div>
-            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR028-Unresolved-UAP-Report-Greece-January-2024" target="_blank" class="btn-play">▶ 動画をピンポイントで開く</a>
+            <button onclick="playAndScroll('DOW-UAP-PR028-Unresolved-UAP-Report-Greece-January-2024')" class="btn-play">▶ 最下部の動画へ突撃</button>
         </div>
 
         <!-- 10本目 -->
@@ -265,12 +257,29 @@
             <div class="video-meta">
                 <span>年: N/A</span>
                 <span>場所: Gulf of Oman</span>
-                <span>管轄: Department of War</span>
             </div>
-            <a href="https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR029-Unresolved-UAP-Report-United-Arab-Emirates-June-2024" target="_blank" class="btn-play">▶ 動画をピンポイントで開く</a>
+            <button onclick="playAndScroll('DOW-UAP-PR029-Unresolved-UAP-Report-United-Arab-Emirates-June-2024')" class="btn-play">▶ 最下部の動画へ突撃</button>
         </div>
 
     </div>
+
+    <!-- 🚀 強制最下部スクロール・スクリプト -->
+    <script>
+        function playAndScroll(id) {
+            // 1. まず新しいタブで政府の動画ページを開く
+            const newWindow = window.open('https://www.war.gov/UFO/?type=.vid#' + id, '_blank');
+            
+            if (newWindow) {
+                // 2. ページが読み込まれるのを少し待ってから（0.6秒後）、一番下まで強制スクロールさせるミサイル発射
+                setTimeout(() => {
+                    newWindow.scrollTo({
+                        top: newWindow.document.body.scrollHeight || 9999,
+                        behavior: 'smooth'
+                    });
+                }, 600);
+            }
+        }
+    </script>
 
 </body>
 </html>
