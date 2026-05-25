@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PURSUE - UAP THEATER FULL MAP</title>
+    <title>PURSUE - RELEASE 02 THEATER PERFECT</title>
     <style>
         :root {
             --bg-color: #0a0c10;
@@ -76,44 +76,37 @@
 <body>
 
     <header>
-        <h1>PURSUE: UAP THEATER FULL MAP</h1>
-        <p>全8ページ完全網羅・真の作戦マップ</p>
+        <h1>PURSUE: RELEASE 02 THEATER</h1>
+        <p>隊長査収済・Release 02 専属パーフェクトマップ</p>
     </header>
 
     <div class="navi-box">
-        🟩 <strong>【完全版】敵バリア破りのマニュアル</strong><br>
+        🟩 <strong>【Release 02 攻略マニュアル】</strong><br>
         1. 「▶ 現地サイトを開く」を押して正面玄関へ。<br>
-        2. スマホなら最下部の「NEXT」を指定の回数ポチポチ押して進む。<br>
-        3. 指定された<strong>「動画番号（PRxxx）」</strong>を目印に再生！
+        2. スマホなら最下部の「NEXT」を指示の回数だけ押してターゲットのページへ。<br>
+        3. ページ内に超高密度で潜伏している「指定のPR番号」を撃破（再生）せよ！
     </div>
 
     <div class="video-list" id="master-list"></div>
 
     <script>
-        // 全8ページ分の動画番号（PR番号）の潜伏先マッピング
+        // 隊長の現地調査によって100%正解へと導かれた神データ
         const uapData = [
-            // --- 1ページ目 (確定ゾーン) ---
-            { p: 1, title: "DOW-UAP-PR050: 4 UAP Formation Iran 26 Aug 2022 over water [CALLSIGN]", note: "1ページ目最上段にあります" },
-            { p: 1, title: "DOW-UAP-PR051: Syrian UAP instant acceleration", note: "1ページ目にあります" },
-            { p: 1, title: "DOW-UAP-PR019 〜 PR029 の動画群", note: "1ページ目にまとめて並んでいます" },
+            // --- 1ページ目 ---
+            { p: 1, title: "DOW-UAP-PR050: 4 UAP Formation Iran 26 Aug 2022 over water [CALLSIGN]", note: "1ページ目最上段（自動ジャンプ時は最下部）", url: "https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR050-4-UAP-Formation-Iran-26-Aug-2022-over-water-CALLSIGN" },
+            { p: 1, title: "DOW-UAP-PR051: Syrian UAP instant acceleration", note: "1ページ目に潜伏中", url: "https://www.war.gov/UFO/?type=.vid" },
 
-            // --- 3ページ目 (偵察完了) ---
-            { p: 3, title: "DOW-UAP-PR052 (UAP USO Formation...)", note: "現地でNEXTを2回押し【3ページ目】へ！「PR052」が目印" },
+            // --- 3ページ目 ---
+            { p: 3, title: "DOW-UAP-PR052: UAP USO Formation [CALLSIGN] (Mission)", note: "現地でNEXTを2回押す！【3ページ目】のターゲット", url: "https://www.war.gov/UFO/?type=.vid" },
 
-            // --- 4ページ目 (偵察完了) ---
-            { p: 4, title: "DOW-UAP-PR053 (Cigar Shaped...)", note: "現地でNEXTを3回押し【4ページ目】へ！「PR053」が目印" },
+            // --- 4ページ目（密集地帯その1） ---
+            { p: 4, title: "DOW-UAP-PR053 〜 PR061 の動画密集地帯", note: "現地でNEXTを3回押す！【4ページ目】にPR053(Cigar Shaped...)からPR061までが固まっています", url: "https://www.war.gov/UFO/?type=.vid" },
 
-            // --- 5ページ目 (未踏エリア) ---
-            { p: 5, title: "DOW-UAP-PR054 〜 PR059 付近の動画群", note: "現地でNEXTを4回押し【5...ページ目】へ！「PR054〜」が潜伏しているエリアです" },
+            // --- 5ページ目（密集地帯その2） ---
+            { p: 5, title: "DOW-UAP-PR062 〜 PR071 の動画密集地帯", note: "現地でNEXTを4回押す！【5ページ目】にPR062からPR071までが固まっています", url: "https://www.war.gov/UFO/?type=.vid" },
 
-            // --- 6ページ目 (未踏エリア) ---
-            { p: 6, title: "DOW-UAP-PR060 〜 PR065 付近の動画群", note: "現地でNEXTを5回押し【6ページ目】へ！「PR060〜」が潜伏しているエリアです" },
-
-            // --- 7ページ目 (未踏エリア) ---
-            { p: 7, title: "DOW-UAP-PR066 〜 PR071 付近の動画群", note: "現地でNEXTを6回押し【7ページ目】へ！「PR066〜」が潜伏しているエリアです" },
-
-            // --- 8ページ目 (最終エリア) ---
-            { p: 8, title: "DOW-UAP-PR072 〜 PR077（最終リリース群）", note: "現地でNEXTを7回押し、最深部【8ページ目】へ！Release 02の最終動画たちが眠っています" }
+            // --- 6ページ目（最終・最大密集地帯） ---
+            { p: 6, title: "DOW-UAP-PR072 〜 PR099（Release 02 最終リリースの全軍）", note: "現地でNEXTを5回押す！【6ページ目】にPR072から、真の最終動画PR099までがすべて集結しています", url: "https://www.war.gov/UFO/?type=.vid" }
         ];
 
         const listContainer = document.getElementById('master-list');
@@ -124,19 +117,14 @@
             
             const isP1 = video.p === 1;
             const badgeClass = isP1 ? 'page-indicator p1-indicator' : 'page-indicator';
-            
-            // 常に安全な正面玄関のURLをセット
-            const targetUrl = isP1 && video.title.includes("PR050")
-                ? "https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR050-4-UAP-Formation-Iran-26-Aug-2022-over-water-CALLSIGN"
-                : "https://www.war.gov/UFO/?type=.vid";
 
             card.innerHTML = `
                 <span class="${badgeClass}">📍 現地サイトの【 ${video.p} ページ目 】に潜伏</span>
                 <div class="video-title">${video.title}</div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); background: #21262d; padding: 6px; border-radius: 4px;">
-                    🎯 攻略ヒント：${video.note}
+                    🎯 攻略：${video.note}
                 </div>
-                <a href="${targetUrl}" target="_blank" class="btn-portal">▶ 現地サイトを開く</a>
+                <a href="${video.url}" target="_blank" class="btn-portal">▶ 現地サイトを開く</a>
             `;
             
             listContainer.appendChild(card);
