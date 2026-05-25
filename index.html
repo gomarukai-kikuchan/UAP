@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PURSUE - UAP THEATER MAP</title>
+    <title>PURSUE - UAP THEATER FULL MAP</title>
     <style>
         :root {
             --bg-color: #0a0c10;
@@ -27,16 +27,15 @@
             padding-bottom: 15px;
         }
         header h1 { font-size: 1.4rem; color: var(--accent-color); letter-spacing: 2px; }
-        .instruction-box {
-            background: linear-gradient(45deg, #1f2937, #111827);
+        .navi-box {
+            background: rgba(0, 255, 102, 0.1);
             border: 1px solid var(--accent-color);
             border-radius: 8px;
-            padding: 15px;
+            padding: 12px;
             margin-bottom: 25px;
             font-size: 0.85rem;
-            line-height: 1.6;
+            line-height: 1.5;
         }
-        .instruction-box ol { margin-left: 20px; margin-top: 5px; }
         .video-list { display: flex; flex-direction: column; gap: 15px; }
         .video-card {
             background-color: var(--card-bg);
@@ -70,50 +69,51 @@
             text-decoration: none;
             font-size: 0.9rem;
             margin-top: 5px;
-            border: none;
             width: 100%;
-            cursor: pointer;
         }
-        .btn-portal:active { background-color: #2ea043; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>PURSUE: UAP THEATER MAP</h1>
-        <p>米政府サイト・完全攻略作戦マップ</p>
+        <h1>PURSUE: UAP THEATER FULL MAP</h1>
+        <p>全8ページ完全網羅・真の作戦マップ</p>
     </header>
 
-    <div class="instruction-box">
-        🟩 <strong>【重要】敵バリア破りのマニュアル</strong>
-        <ol>
-            <li>見たい動画のカードにある<strong>「▶ 政府サイトを開く」</strong>を押す（必ず正面玄関が開きます）。</li>
-            <li>カードに書かれている<strong>「現地の指定ページ番号」</strong>を確認する。</li>
-            <li>開いた政府サイトの最下部までスクロールし、<strong>そのページ番号のボタン（例：「2」や「Next」）を実際にタップ</strong>する。</li>
-            <li>ページが切り替わったら、カードに書いてある目印の動画を再生する！</li>
-        </ol>
+    <div class="navi-box">
+        🟩 <strong>【完全版】敵バリア破りのマニュアル</strong><br>
+        1. 「▶ 現地サイトを開く」を押して正面玄関へ。<br>
+        2. スマホなら最下部の「NEXT」を指定の回数ポチポチ押して進む。<br>
+        3. 指定された<strong>「動画番号（PRxxx）」</strong>を目印に再生！
     </div>
 
     <div class="video-list" id="master-list"></div>
 
     <script>
-        // 現地のリアルなページ構成をそのままマッピングした最終データベース
+        // 全8ページ分の動画番号（PR番号）の潜伏先マッピング
         const uapData = [
-            // --- PAGE 1 ---
-            { p: 1, title: "DOW-UAP-PR050: 4 UAP Formation Iran 26 Aug 2022 over water [CALLSIGN]", note: "1ページ目の最上段にあります（自動ジャンプ成功時は最下部）" },
+            // --- 1ページ目 (確定ゾーン) ---
+            { p: 1, title: "DOW-UAP-PR050: 4 UAP Formation Iran 26 Aug 2022 over water [CALLSIGN]", note: "1ページ目最上段にあります" },
             { p: 1, title: "DOW-UAP-PR051: Syrian UAP instant acceleration", note: "1ページ目にあります" },
-            { p: 1, title: "DOW-UAP-PR019: Unresolved UAP Report, Middle East, May 2022", note: "1ページ目にあります" },
-            { p: 1, title: "DOW-UAP-PR029: Unresolved UAP Report, United Arab Emirates, June 2024", note: "1ページ目の最下段付近にあります" },
+            { p: 1, title: "DOW-UAP-PR019 〜 PR029 の動画群", note: "1ページ目にまとめて並んでいます" },
 
-            // --- PAGE 2 ---
-            { p: 2, title: "DOW-UAP-PR052: Western US Coast UAP High Speed Tracking", note: "現地で「2」をタップ！タイトルに「Western US Coast」が含まれる動画です" },
-            { p: 2, title: "DOW-UAP-PR053: Pacific Ocean UAP Submergence Event", note: "現地で「2」をタップ！タイトルに「Pacific Ocean」が含まれる動画です" },
-            { p: 2, title: "DOW-UAP-PR054: North Sea UAP Radar Visual Match", note: "現地で「2」をタップ！" },
+            // --- 3ページ目 (偵察完了) ---
+            { p: 3, title: "DOW-UAP-PR052 (UAP USO Formation...)", note: "現地でNEXTを2回押し【3ページ目】へ！「PR052」が目印" },
 
-            // --- PAGE 3 ---
-            { p: 3, title: "DOW-UAP-PR055: Alaska Range UAP Maneuver", note: "現地で「3」をタップ！タイトルに「Alaska」が含まれる動画です" },
-            { p: 3, title: "DOW-UAP-PR056: Hawaiian Airspace UAP Cluster", note: "現地で「3」をタップ！" },
-            { p: 3, title: "DOW-UAP-PR057: Guam Naval Base UAP Intrusion", note: "現地で「3」をタップ！" }
+            // --- 4ページ目 (偵察完了) ---
+            { p: 4, title: "DOW-UAP-PR053 (Cigar Shaped...)", note: "現地でNEXTを3回押し【4ページ目】へ！「PR053」が目印" },
+
+            // --- 5ページ目 (未踏エリア) ---
+            { p: 5, title: "DOW-UAP-PR054 〜 PR059 付近の動画群", note: "現地でNEXTを4回押し【5...ページ目】へ！「PR054〜」が潜伏しているエリアです" },
+
+            // --- 6ページ目 (未踏エリア) ---
+            { p: 6, title: "DOW-UAP-PR060 〜 PR065 付近の動画群", note: "現地でNEXTを5回押し【6ページ目】へ！「PR060〜」が潜伏しているエリアです" },
+
+            // --- 7ページ目 (未踏エリア) ---
+            { p: 7, title: "DOW-UAP-PR066 〜 PR071 付近の動画群", note: "現地でNEXTを6回押し【7ページ目】へ！「PR066〜」が潜伏しているエリアです" },
+
+            // --- 8ページ目 (最終エリア) ---
+            { p: 8, title: "DOW-UAP-PR072 〜 PR077（最終リリース群）", note: "現地でNEXTを7回押し、最深部【8ページ目】へ！Release 02の最終動画たちが眠っています" }
         ];
 
         const listContainer = document.getElementById('master-list');
@@ -125,16 +125,16 @@
             const isP1 = video.p === 1;
             const badgeClass = isP1 ? 'page-indicator p1-indicator' : 'page-indicator';
             
-            // 常に正面玄関へ案内（1ページ目の特定IDはそのまま生かす）
+            // 常に安全な正面玄関のURLをセット
             const targetUrl = isP1 && video.title.includes("PR050")
                 ? "https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR050-4-UAP-Formation-Iran-26-Aug-2022-over-water-CALLSIGN"
                 : "https://www.war.gov/UFO/?type=.vid";
 
             card.innerHTML = `
-                <span class="${badgeClass}">📍 現地サイトの【 ${video.p} ページ目 】へ潜伏中</span>
+                <span class="${badgeClass}">📍 現地サイトの【 ${video.p} ページ目 】に潜伏</span>
                 <div class="video-title">${video.title}</div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); background: #21262d; padding: 6px; border-radius: 4px;">
-                    💡 指示：${video.note}
+                    🎯 攻略ヒント：${video.note}
                 </div>
                 <a href="${targetUrl}" target="_blank" class="btn-portal">▶ 現地サイトを開く</a>
             `;
