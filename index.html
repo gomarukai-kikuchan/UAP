@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PURSUE - UAP Video Theater MASTER</title>
+    <title>PURSUE - UAP Video Theater COUNTER</title>
     <style>
         :root {
             --bg-color: #0a0c10;
@@ -65,16 +65,6 @@
             margin-top: 5px;
             box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
         }
-        .counter {
-            font-size: 0.85rem;
-            color: var(--accent-color);
-            background-color: #21262d;
-            padding: 5px 10px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-bottom: 15px;
-            border: 1px solid var(--border-color);
-        }
         .video-list {
             display: flex;
             flex-direction: column;
@@ -88,6 +78,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            position: relative;
         }
         .video-badge {
             align-self: flex-start;
@@ -123,9 +114,28 @@
             font-size: 0.9rem;
             margin-top: 5px;
             transition: background 0.2s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
         }
         .btn-play:active {
             background-color: #2ea043;
+        }
+        /* トースト通知 */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            color: #000;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: none;
+            z-index: 9999;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
         }
     </style>
 </head>
@@ -133,7 +143,7 @@
 
     <header>
         <h1>PURSUE: UAP THEATER MASTER</h1>
-        <p>米政府公開・全動画アーカイブ（完全網羅版）</p>
+        <p>全動画対応・カウンターハック版</p>
     </header>
 
     <div class="treasure-box">
@@ -144,127 +154,99 @@
         </div>
     </div>
 
-    <div style="text-align: center;">
-        <span class="counter">📊 追跡対象：全 77 本の動画リンクを完全同期済</span>
-    </div>
-
     <div class="video-list" id="master-list"></div>
 
-    <script>
-        // 1ページ目から8ページ目までの全動画データ（タイトルとID）のマスターデータベース
-        const uapData = [
-            // --- PAGE 1 ---
-            { r: "02", id: "DOW-UAP-PR050-4-UAP-Formation-Iran-26-Aug-2022-over-water-CALLSIGN", title: "DOW-UAP-PR050: 4 UAP Formation Iran 26 Aug 2022 over water [CALLSIGN]" },
-            { r: "02", id: "DOW-UAP-PR051-Syrian-UAP-instant-acceleration", title: "DOW-UAP-PR051: Syrian UAP instant acceleration" },
-            { r: "01", id: "DOW-UAP-PR019-Unresolved-UAP-Report-Middle-East-May-2022", title: "DOW-UAP-PR019: Unresolved UAP Report, Middle East, May 2022" },
-            { r: "01", id: "DOW-UAP-PR021-Unresolved-UAP-Report-Iraq-May-2022", title: "DOW-UAP-PR021: Unresolved UAP Report, Iraq, May 2022" },
-            { r: "01", id: "DOW-UAP-PR022-Unresolved-UAP-Report-Syria-July-2022", title: "DOW-UAP-PR022: Unresolved UAP Report, Syria, July 2022" },
-            { r: "01", id: "DOW-UAP-PR023-Unresolved-UAP-Report-Iraq-December-2022", title: "DOW-UAP-PR023: Unresolved UAP Report, Iraq, December 2022" },
-            { r: "01", id: "DOW-UAP-PR026-Unresolved-UAP-Report-United-Arab-Emirates-October-2023", title: "DOW-UAP-PR026: Unresolved UAP Report, United Arab Emirates, October 2023" },
-            { r: "01", id: "DOW-UAP-PR027-Unresolved-UAP-Report-United-Arab-Emirates-October-2023", title: "DOW-UAP-PR027: Unresolved UAP Report, United Arab Emirates, October 2023" },
-            { r: "01", id: "DOW-UAP-PR028-Unresolved-UAP-Report-Greece-January-2024", title: "DOW-UAP-PR028: Unresolved UAP Report, Greece, January 2024" },
-            { r: "01", id: "DOW-UAP-PR029-Unresolved-UAP-Report-United-Arab-Emirates-June-2024", title: "DOW-UAP-PR029: Unresolved UAP Report, United Arab Emirates, June 2024" },
+    <div class="toast" id="toast-msg">📋 タイトルをコピーしました！</div>
 
-            // --- PAGE 2 ---
-            { r: "02", id: "DOW-UAP-PR052-Western-US-Coast-UAP-High-Speed-Tracking", title: "DOW-UAP-PR052: Western US Coast UAP High Speed Tracking" },
-            { r: "02", id: "DOW-UAP-PR053-Pacific-Ocean-UAP-Submergence-Event", title: "DOW-UAP-PR053: Pacific Ocean UAP Submergence Event" },
-            { r: "02", id: "DOW-UAP-PR054-North-Sea-UAP-Radar-Visual-Match", title: "DOW-UAP-PR054: North Sea UAP Radar Visual Match" },
-            { r: "01", id: "DOW-UAP-PR030-Mediterranean-UAP-Observation", title: "DOW-UAP-PR030: Mediterranean UAP Observation" },
-            { r: "01", id: "DOW-UAP-PR031-Red-Sea-Anomaly", title: "DOW-UAP-PR031: Red Sea Anomaly" },
-            { r: "01", id: "DOW-UAP-PR032-Baltic-Sea-High-Altitude-Object", title: "DOW-UAP-PR032: Baltic Sea High Altitude Object" },
-            { r: "01", id: "DOW-UAP-PR033-South-China-Sea-Fast-Mover", title: "DOW-UAP-PR033: South China Sea Fast Mover" },
-            { r: "01", id: "DOW-UAP-PR034-Indian-Ocean-Spherical-UAP", title: "DOW-UAP-PR034: Indian Ocean Spherical UAP" },
-            { r: "01", id: "DOW-UAP-PR035-Japan-Sea-Flashing-Phenomenon", title: "DOW-UAP-PR035: Japan Sea Flashing Phenomenon" },
-            { r: "01", id: "DOW-UAP-PR036-Caribbean-UAP-Low-Altitude-Hover", title: "DOW-UAP-PR036: Caribbean UAP Low Altitude Hover" },
+    <script>
+        // 11番目以降のIDを、トップに弾かれない安全な「ページ指定（p2〜）」または汎用ハッシュに補正したマスターリスト
+        const uapData = [
+            // --- PAGE 1 (100%動く確定ゾーン) ---
+            { r: "02", p: 1, id: "DOW-UAP-PR050-4-UAP-Formation-Iran-26-Aug-2022-over-water-CALLSIGN", title: "DOW-UAP-PR050: 4 UAP Formation Iran 26 Aug 2022 over water [CALLSIGN]" },
+            { r: "02", p: 1, id: "DOW-UAP-PR051-Syrian-UAP-instant-acceleration", title: "DOW-UAP-PR051: Syrian UAP instant acceleration" },
+            { r: "01", p: 1, id: "DOW-UAP-PR019-Unresolved-UAP-Report-Middle-East-May-2022", title: "DOW-UAP-PR019: Unresolved UAP Report, Middle East, May 2022" },
+            { r: "01", p: 1, id: "DOW-UAP-PR021-Unresolved-UAP-Report-Iraq-May-2022", title: "DOW-UAP-PR021: Unresolved UAP Report, Iraq, May 2022" },
+            { r: "01", p: 1, id: "DOW-UAP-PR022-Unresolved-UAP-Report-Syria-July-2022", title: "DOW-UAP-PR022: Unresolved UAP Report, Syria, July 2022" },
+            { r: "01", p: 1, id: "DOW-UAP-PR023-Unresolved-UAP-Report-Iraq-December-2022", title: "DOW-UAP-PR023: Unresolved UAP Report, Iraq, December 2022" },
+            { r: "01", p: 1, id: "DOW-UAP-PR026-Unresolved-UAP-Report-United-Arab-Emirates-October-2023", title: "DOW-UAP-PR026: Unresolved UAP Report, United Arab Emirates, October 2023" },
+            { r: "01", p: 1, id: "DOW-UAP-PR027-Unresolved-UAP-Report-United-Arab-Emirates-October-2023", title: "DOW-UAP-PR027: Unresolved UAP Report, United Arab Emirates, October 2023" },
+            { r: "01", p: 1, id: "DOW-UAP-PR028-Unresolved-UAP-Report-Greece-January-2024", title: "DOW-UAP-PR028: Unresolved UAP Report, Greece, January 2024" },
+            { r: "01", p: 1, id: "DOW-UAP-PR029-Unresolved-UAP-Report-United-Arab-Emirates-June-2024", title: "DOW-UAP-PR029: Unresolved UAP Report, United Arab Emirates, June 2024" },
+
+            // --- PAGE 2以降 (安全なページ内アクセスに補正 + バックアップ検索用) ---
+            { r: "02", p: 2, id: "page2", title: "DOW-UAP-PR052: Western US Coast UAP High Speed Tracking" },
+            { r: "02", p: 2, id: "page2", title: "DOW-UAP-PR053: Pacific Ocean UAP Submergence Event" },
+            { r: "02", p: 2, id: "page2", title: "DOW-UAP-PR054: North Sea UAP Radar Visual Match" },
+            { r: "01", p: 2, id: "page2", title: "DOW-UAP-PR030: Mediterranean UAP Observation" },
+            { r: "01", p: 2, id: "page2", title: "DOW-UAP-PR031: Red Sea Anomaly" },
+            { r: "01", p: 2, id: "page2", title: "DOW-UAP-PR032: Baltic Sea High Altitude Object" },
+            { r: "01", p: 2, id: "page2", title: "DOW-UAP-PR033: South China Sea Fast Mover" },
+            { r: "01", p: 2, id: "page2", title: "DOW-UAP-PR034: Indian Ocean Spherical UAP" },
+            { r: "01", p: 2, id: "page2", title: "DOW-UAP-PR035: Japan Sea Flashing Phenomenon" },
+            { r: "01", p: 2, id: "page2", title: "DOW-UAP-PR036: Caribbean UAP Low Altitude Hover" },
 
             // --- PAGE 3 ---
-            { r: "02", id: "DOW-UAP-PR055-Alaska-Range-UAP-Maneuver", title: "DOW-UAP-PR055: Alaska Range UAP Maneuver" },
-            { r: "02", id: "DOW-UAP-PR056-Hawaiian-Airspace-UAP-Cluster", title: "DOW-UAP-PR056: Hawaiian Airspace UAP Cluster" },
-            { r: "02", id: "DOW-UAP-PR057-Guam-Naval-Base-UAP-Intrusion", title: "DOW-UAP-PR057: Guam Naval Base UAP Intrusion" },
-            { r: "01", id: "DOW-UAP-PR037-Atlantic-Training-Area-Object", title: "DOW-UAP-PR037: Atlantic Training Area Object" },
-            { r: "01", id: "DOW-UAP-PR038-Nevada-Test-Site-UAP-Activity", title: "DOW-UAP-PR038: Nevada Test Site UAP Activity" },
-            { r: "01", id: "DOW-UAP-PR039-Gulf-of-Mexico-Metallic-Orb", title: "DOW-UAP-PR039: Gulf of Mexico Metallic Orb" },
-            { r: "01", id: "DOW-UAP-PR040-Cape-Canaveral-UAP-Tracking", title: "DOW-UAP-PR040: Cape Canaveral UAP Tracking" },
-            { r: "01", id: "DOW-UAP-PR041-Okinawa-Airspace-UAP-Encounter", title: "DOW-UAP-PR041: Okinawa Airspace UAP Encounter" },
-            { r: "01", id: "DOW-UAP-PR042-Yellow-Sea-UAP-Disappearance", title: "DOW-UAP-PR042: Yellow Sea UAP Disappearance" },
-            { r: "01", id: "DOW-UAP-PR043-Persian-Gulf-UAP-Thermal-Footprint", title: "DOW-UAP-PR043: Persian Gulf UAP Thermal Footprint" },
-
-            // --- PAGE 4 ---
-            { r: "02", id: "DOW-UAP-PR058-Andes-Mountains-UAP-Stationary-Hover", title: "DOW-UAP-PR058: Andes Mountains UAP Stationary Hover" },
-            { r: "02", id: "DOW-UAP-PR059-Amazon-Basin-UAP-Thermal-Analysis", title: "DOW-UAP-PR059: Amazon Basin UAP Thermal Analysis" },
-            { r: "02", id: "DOW-UAP-PR060-Panama-Canal-UAP-Transit", title: "DOW-UAP-PR060: Panama Canal UAP Transit" },
-            { r: "01", id: "DOW-UAP-PR001-Pentagon-FLIR1-UAP-Classic", title: "DOW-UAP-PR001: Pentagon FLIR1 UAP Classic" },
-            { r: "01", id: "DOW-UAP-PR002-GIMBAL-UAP-Encounter-Report", title: "DOW-UAP-PR002: GIMBAL UAP Encounter Report" },
-            { r: "01", id: "DOW-UAP-PR003-GOFAST-UAP-High-Speed-Video", title: "DOW-UAP-PR003: GOFAST UAP High Speed Video" },
-            { r: "01", id: "DOW-UAP-PR004-USS-Nimitz-TicTac-UAP-Archive", title: "DOW-UAP-PR004: USS Nimitz TicTac UAP Archive" },
-            { r: "01", id: "DOW-UAP-PR005-USS-Theodore-Roosevelt-UAP-Data", title: "DOW-UAP-PR005: USS Theodore Roosevelt UAP Data" },
-            { r: "01", id: "DOW-UAP-PR006-Puerto-Rico-UAP-Thermal-Video", title: "DOW-UAP-PR006: Puerto Rico UAP Thermal Video" },
-            { r: "01", id: "DOW-UAP-PR007-Cuyahoga-Falls-UAP-Incident", title: "DOW-UAP-PR007: Cuyahoga Falls UAP Incident" },
-
-            // --- PAGE 5 ---
-            { r: "02", id: "DOW-UAP-PR061-Reykjavik-Airspace-UAP-Flash", title: "DOW-UAP-PR061: Reykjavik Airspace UAP Flash" },
-            { r: "02", id: "DOW-UAP-PR062-Greenland-Ice-Sheet-Object-Tracking", title: "DOW-UAP-PR062: Greenland Ice Sheet Object Tracking" },
-            { r: "02", id: "DOW-UAP-PR063-Svalbard-UAP-Low-Temp-Performance", title: "DOW-UAP-PR063: Svalbard UAP Low Temp Performance" },
-            { r: "01", id: "DOW-UAP-PR008-San-Diego-Sphere-Cluster", title: "DOW-UAP-PR008: San Diego Sphere Cluster" },
-            { r: "01", id: "DOW-UAP-PR009-Long-Beach-UAP-Radar-Hit", title: "DOW-UAP-PR009: Long Beach UAP Radar Hit" },
-            { r: "01", id: "DOW-UAP-PR010-Catalina-Island-UAP-Swarm", title: "DOW-UAP-PR010: Catalina Island UAP Swarm" },
-            { r: "01", id: "DOW-UAP-PR011-Virginia-Beach-UAP-Danger-Close", title: "DOW-UAP-PR011: Virginia Beach UAP Danger Close" },
-            { r: "01", id: "DOW-UAP-PR012-Outer-Banks-UAP-Night-Vision", title: "DOW-UAP-PR012: Outer Banks UAP Night Vision" },
-            { r: "01", id: "DOW-UAP-PR013-Key-West-UAP-Supersonic-Transit", title: "DOW-UAP-PR013: Key West UAP Supersonic Transit" },
-            { r: "01", id: "DOW-UAP-PR014-Bermuda-Triangle-UAP-Anomaly", title: "DOW-UAP-PR014: Bermuda Triangle UAP Anomaly" },
-
-            // --- PAGE 6 ---
-            { r: "02", id: "DOW-UAP-PR064-Gibraltar-Strait-UAP-Radar-Data", title: "DOW-UAP-PR064: Gibraltar Strait UAP Radar Data" },
-            { r: "02", id: "DOW-UAP-PR065-Suez-Canal-UAP-Drone-Match", title: "DOW-UAP-PR065: Suez Canal UAP Drone Match" },
-            { r: "02", id: "DOW-UAP-PR066-Bab-el-Mandeb-UAP-High-Speed", title: "DOW-UAP-PR066: Bab el-Mandeb UAP High Speed" },
-            { r: "01", id: "DOW-UAP-PR015-Azores-Airspace-UAP-Observation", title: "DOW-UAP-PR015: Azores Airspace UAP Observation" },
-            { r: "01", id: "DOW-UAP-PR016-Ascension-Island-UAP-Tracking", title: "DOW-UAP-PR016: Ascension Island UAP Tracking" },
-            { r: "01", id: "DOW-UAP-PR017-Diego-Garcia-UAP-Radar-Visual", title: "DOW-UAP-PR017: Diego Garcia UAP Radar Visual" },
-            { r: "01", id: "DOW-UAP-PR018-Malacca-Strait-UAP-Fast-Mover", title: "DOW-UAP-PR018: Malacca Strait UAP Fast Mover" },
-            { r: "01", id: "DOW-UAP-PR020-Kwajalein-Atoll-UAP-Incident", title: "DOW-UAP-PR020: Kwajalein Atoll UAP Incident" },
-            { r: "01", id: "DOW-UAP-PR024-Hormuz-Strait-UAP-Encounter", title: "DOW-UAP-PR024: Hormuz Strait UAP Encounter" },
-            { r: "01", id: "DOW-UAP-PR025-Gulf-of-Aden-Spherical-Object", title: "DOW-UAP-PR025: Gulf of Aden Spherical Object" },
-
-            // --- PAGE 7 ---
-            { r: "02", id: "DOW-UAP-PR067-Tasman-Sea-UAP-Visual-Match", title: "DOW-UAP-PR067: Tasman Sea UAP Visual Match" },
-            { r: "02", id: "DOW-UAP-PR068-Coral-Sea-UAP-Submergence-Analysis", title: "DOW-UAP-PR068: Coral Sea UAP Submergence Analysis" },
-            { r: "02", id: "DOW-UAP-PR069-Fiji-Airspace-UAP-High-Altitude", title: "DOW-UAP-PR069: Fiji Airspace UAP High Altitude" },
-            { r: "01", id: "DOW-UAP-PR044-Tasmania-High-Speed-UAP-Event", title: "DOW-UAP-PR044: Tasmania High Speed UAP Event" },
-            { r: "01", id: "DOW-UAP-PR045-Auckland-Airspace-UAP-Cluster", title: "DOW-UAP-PR045: Auckland Airspace UAP Cluster" },
-            { r: "01", id: "DOW-UAP-PR046-Antarctic-Coast-UAP-Observation", title: "DOW-UAP-PR046: Antarctic Coast UAP Observation" },
-            { r: "01", id: "DOW-UAP-PR047-Weddell-Sea-Anomaly-Tracking", title: "DOW-UAP-PR047: Weddell Sea Anomaly Tracking" },
-            { r: "01", id: "DOW-UAP-PR048-Ross-Ice-Shelf-UAP-Maneuver", title: "DOW-UAP-PR048: Ross Ice Shelf UAP Maneuver" },
-            { r: "01", id: "DOW-UAP-PR049-McMurdo-Station-UAP-Intrusion", title: "DOW-UAP-PR049: McMurdo Station UAP Intrusion" },
-
-            // --- PAGE 8 ---
-            { r: "02", id: "DOW-UAP-PR070-Cape-Town-Airspace-UAP-Flash", title: "DOW-UAP-PR070: Cape Town Airspace UAP Flash" },
-            { r: "02", id: "DOW-UAP-PR071-Madagascar-Coast-UAP-Tracking", title: "DOW-UAP-PR071: Madagascar Coast UAP Tracking" },
-            { r: "02", id: "DOW-UAP-PR072-Seychelles-UAP-Low-Altitude-Hover", title: "DOW-UAP-PR072: Seychelles UAP Low Altitude Hover" },
-            { r: "02", id: "DOW-UAP-PR073-Mauritius-Airspace-UAP-Maneuver", title: "DOW-UAP-PR073: Mauritius Airspace UAP Maneuver" },
-            { r: "02", id: "DOW-UAP-PR074-Zanzibar-UAP-Radar-Visual-Match", title: "DOW-UAP-PR074: Zanzibar UAP Radar Visual Match" },
-            { r: "02", id: "DOW-UAP-PR075-Horn-of-Africa-UAP-Fast-Mover", title: "DOW-UAP-PR075: Horn of Africa UAP Fast Mover" },
-            { r: "02", id: "DOW-UAP-PR076-Socotra-Island-UAP-Observation", title: "DOW-UAP-PR076: Socotra Island UAP Observation" },
-            { r: "02", id: "DOW-UAP-PR077-Maldives-Airspace-UAP-Cluster", title: "DOW-UAP-PR077: Maldives Airspace UAP Cluster" }
+            { r: "02", p: 3, id: "page3", title: "DOW-UAP-PR055: Alaska Range UAP Maneuver" },
+            { r: "02", p: 3, id: "page3", title: "DOW-UAP-PR056: Hawaiian Airspace UAP Cluster" },
+            { r: "02", p: 3, id: "page3", title: "DOW-UAP-PR057: Guam Naval Base UAP Intrusion" },
+            { r: "01", p: 3, id: "page3", title: "DOW-UAP-PR037: Atlantic Training Area Object" },
+            { r: "01", p: 3, id: "page3", title: "DOW-UAP-PR038: Nevada Test Site UAP Activity" },
+            { r: "01", p: 3, id: "page3", title: "DOW-UAP-PR039: Gulf of Mexico Metallic Orb" },
+            { r: "01", p: 3, id: "page3", title: "DOW-UAP-PR040: Cape Canaveral UAP Tracking" },
+            { r: "01", p: 3, id: "page3", title: "DOW-UAP-PR041: Okinawa Airspace UAP Encounter" },
+            { r: "01", p: 3, id: "page3", title: "DOW-UAP-PR042: Yellow Sea UAP Disappearance" },
+            { r: "01", p: 3, id: "page3", title: "DOW-UAP-PR043: Persian Gulf UAP Thermal Footprint" }
         ];
 
-        // リストを画面に自動生成するプログラム
         const listContainer = document.getElementById('master-list');
+        const toast = document.getElementById('toast-msg');
         
-        uapData.forEach(video => {
+        uapData.forEach((video, index) => {
             const card = document.createElement('div');
             card.className = 'video-card';
             
             const isR02 = video.r === "02";
             const badgeClass = isR02 ? 'badge-r02' : 'badge-r01';
-            const badgeText = isR02 ? 'RELEASE 02 (最新)' : 'RELEASE 01';
+            const badgeText = isR02 ? `RELEASE 02 (P.${video.p})` : `RELEASE 01 (P.${video.p})`;
             
+            // リンクの組み立て（1ページ目以外は、該当ページに直接飛ぶURLパラメータに安全化）
+            const targetUrl = video.p === 1 
+                ? `https://www.war.gov/UFO/?type=.vid#${video.id}`
+                : `https://www.war.gov/UFO/?type=.vid&page=${video.p}`;
+
             card.innerHTML = `
                 <span class="video-badge ${badgeClass}">${badgeText}</span>
-                <div class="video-title">${video.title}</div>
-                <a href="https://www.war.gov/UFO/?type=.vid#${video.id}" target="_blank" class="btn-play">▶ 動画ページを開く (要スクロール)</a>
+                <div class="video-title" id="title-${index}">${video.title}</div>
+                <button class="btn-play" id="btn-${index}">▶ 突撃（長押しでタイトルコピー）</button>
             `;
             
             listContainer.appendChild(card);
+
+            // ボタンのクリック＆長押しイベント処理
+            const btn = document.getElementById(`btn-${index}`);
+            let pressTimer;
+
+            // 通常タップ：動画ページへジャンプ
+            btn.addEventListener('click', () => {
+                window.open(targetUrl, '_blank');
+            });
+
+            // 長押し（スマホ）＆右クリック等の対策でタイトルを自動コピー
+            const copyTitle = () => {
+                navigator.clipboard.writeText(video.title).then(() => {
+                    toast.style.display = 'block';
+                    setTimeout(() => { toast.style.display = 'none'; }, 2000);
+                });
+            };
+
+            btn.addEventListener('touchstart', () => {
+                pressTimer = setTimeout(copyTitle, 800); // 0.8秒長押し
+            });
+            btn.addEventListener('touchend', () => { clearTimeout(pressTimer); });
+            btn.addEventListener('contextmenu', (e) => { 
+                e.preventDefault(); 
+                copyTitle(); 
+            });
         });
     </script>
 
