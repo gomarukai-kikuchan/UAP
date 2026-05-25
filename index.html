@@ -36,7 +36,7 @@
             font-size: 0.85rem;
             line-height: 1.5;
         }
-        .video-list { display: flex; flex-direction: column; gap: 15px; }
+        .video-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
         .video-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -56,7 +56,6 @@
             border: 1px solid var(--accent-color);
             color: var(--accent-color);
         }
-        .p1-indicator { border-color: #00d2ff; color: #00d2ff; }
         .video-title { font-size: 0.95rem; font-weight: bold; line-height: 1.4; }
         .btn-portal {
             display: block;
@@ -71,42 +70,80 @@
             margin-top: 5px;
             width: 100%;
         }
+        /* お宝ZIPリンクコーナー用スタイル */
+        .treasure-box {
+            background: linear-gradient(45deg, #1f2937, #111827);
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .treasure-box h3 {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+        .btn-zip {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #000;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+            width: 100%;
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>PURSUE: RELEASE 02 THEATER</h1>
-        <p>隊長査収済・Release 02 専属パーフェクトマップ</p>
+        <p>Release 02 専属・完全同期作戦マップ</p>
     </header>
 
     <div class="navi-box">
         🟩 <strong>【Release 02 攻略マニュアル】</strong><br>
         1. 「▶ 現地サイトを開く」を押して正面玄関へ。<br>
-        2. スマホなら最下部の「NEXT」を指示の回数だけ押してターゲットのページへ。<br>
-        3. ページ内に超高密度で潜伏している「指定のPR番号」を撃破（再生）せよ！
+        2. スマホなら最下部の「NEXT」を指定回数押してターゲットのページへ。<br>
+        3. ページ内に潜伏している「指定のPR番号」を撃破（再生）せよ！
     </div>
 
+    <!-- 動画リスト -->
     <div class="video-list" id="master-list"></div>
 
+    <!-- お宝ZIPリンクコーナー（最下段へ配置） -->
+    <div class="treasure-box">
+        <h3>🎁 米政府公開・全動画一括DLリンク (PC推奨)</h3>
+        <a href="https://d34w7g4gy10iej.cloudfront.net/uap052226.zip" class="btn-zip">Release 02 動画を丸ごと落とす [5.6GB]</a>
+        <div style="margin-top: 10px;">
+            <a href="https://d34w7g4gy10iej.cloudfront.net/uapvideos.zip" class="btn-zip" style="background-color: #00d2ff; box-shadow: 0 0 10px rgba(0, 210, 255, 0.3); color: #000;">Release 01 動画を丸ごと落とす [1.3GB]</a>
+        </div>
+    </div>
+
     <script>
-        // 隊長の現地調査によって100%正解へと導かれた神データ
+        // すべてのバグとズレを修正した最終マスターデータ
         const uapData = [
             // --- 1ページ目 ---
-            { p: 1, title: "DOW-UAP-PR050: 4 UAP Formation Iran 26 Aug 2022 over water [CALLSIGN]", note: "1ページ目最上段（自動ジャンプ時は最下部）", url: "https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR050-4-UAP-Formation-Iran-26-Aug-2022-over-water-CALLSIGN" },
-            { p: 1, title: "DOW-UAP-PR051: Syrian UAP instant acceleration", note: "1ページ目に潜伏中", url: "https://www.war.gov/UFO/?type=.vid" },
+            { p: "1 ページ目", title: "DOW-UAP-PR050: 4 UAP Formation Iran 26 Aug 2022 over water [CALLSIGN]", note: "1ページ目最上段にあります（自動ジャンプ時は最下部）", url: "https://www.war.gov/UFO/?type=.vid#DOW-UAP-PR050-4-UAP-Formation-Iran-26-Aug-2022-over-water-CALLSIGN" },
+            { p: "1 ページ目", title: "DOW-UAP-PR051: Syrian UAP instant acceleration", note: "1ページ目に潜伏中", url: "https://www.war.gov/UFO/?type=.vid" },
 
             // --- 3ページ目 ---
-            { p: 3, title: "DOW-UAP-PR052: UAP USO Formation [CALLSIGN] (Mission)", note: "現地でNEXTを2回押す！【3ページ目】のターゲット", url: "https://www.war.gov/UFO/?type=.vid" },
+            { p: "3 ページ目", title: "DOW-UAP-PR052: UAP USO Formation [CALLSIGN] (Mission)", note: "現地でNEXTを2回押す！【3ページ目】のターゲット", url: "https://www.war.gov/UFO/?type=.vid" },
 
-            // --- 4ページ目（密集地帯その1） ---
-            { p: 4, title: "DOW-UAP-PR053 〜 PR061 の動画密集地帯", note: "現地でNEXTを3回押す！【4ページ目】にPR053(Cigar Shaped...)からPR061までが固まっています", url: "https://www.war.gov/UFO/?type=.vid" },
+            // --- 4ページ目 ---
+            { p: "4 ページ目", title: "DOW-UAP-PR053 〜 PR061 の動画密集地帯", note: "現地でNEXTを3回押す！【4ページ目】にPR053(Cigar Shaped...)からPR061までが固まっています", url: "https://www.war.gov/UFO/?type=.vid" },
 
-            // --- 5ページ目（密集地帯その2） ---
-            { p: 5, title: "DOW-UAP-PR062 〜 PR071 の動画密集地帯", note: "現地でNEXTを4回押す！【5ページ目】にPR062からPR071までが固まっています", url: "https://www.war.gov/UFO/?type=.vid" },
+            // --- 5ページ目 ---
+            { p: "5 ページ目", title: "DOW-UAP-PR062 〜 PR071 の動画密集地帯", note: "現地でNEXTを4回押す！【5ページ目】にPR062からPR071までが固まっています", url: "https://www.war.gov/UFO/?type=.vid" },
 
-            // --- 6ページ目（最終・最大密集地帯） ---
-            { p: 6, title: "DOW-UAP-PR072 〜 PR099（Release 02 最終リリースの全軍）", note: "現地でNEXTを5回押す！【6ページ目】にPR072から、真の最終動画PR099までがすべて集結しています", url: "https://www.war.gov/UFO/?type=.vid" }
+            // --- 6〜8ページ目（真の最終広域地帯） ---
+            { p: "6 ページ目 ～ 最終8 ページ目", title: "DOW-UAP-PR072 〜 PR099（Release 02 最終リリースの全軍）", note: "現地でNEXTを5 ～ 7回押す！【6ページ目 ～ 最終8 ページ目】にPR072から、真の最終動画PR099までがすべて集結しています", url: "https://www.war.gov/UFO/?type=.vid" }
         ];
 
         const listContainer = document.getElementById('master-list');
@@ -115,11 +152,8 @@
             const card = document.createElement('div');
             card.className = 'video-card';
             
-            const isP1 = video.p === 1;
-            const badgeClass = isP1 ? 'page-indicator p1-indicator' : 'page-indicator';
-
             card.innerHTML = `
-                <span class="${badgeClass}">📍 現地サイトの【 ${video.p} ページ目 】に潜伏</span>
+                <span class="page-indicator">📍 現地サイトの【 ${video.p} 】に潜伏</span>
                 <div class="video-title">${video.title}</div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); background: #21262d; padding: 6px; border-radius: 4px;">
                     🎯 攻略：${video.note}
